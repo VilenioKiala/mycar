@@ -88,3 +88,11 @@ export const createCarBodySchema = {
     image: { type: "string" },
   },
 };
+
+export const deleteCarBodySchema = {
+  type: "object",
+  required: ["id"],
+  properties: {
+    id: { type: "string" },
+  },
+};

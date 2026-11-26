@@ -27,6 +27,22 @@ class InMemoryCategoryRepository implements ICategoryRepository {
 
     return Promise.resolve(category);
   }
+
+  async deleteCategory(id: string) {
+    const categoryToDelete = this.categories.filter(
+      (category) => category.id == id,
+    )[0];
+
+    if (categoryToDelete) {
+      this.categories = [
+        ...this.categories.filter((category) => category.id != id),
+      ];
+
+      return Promise.resolve(categoryToDelete);
+    }
+
+    return undefined;
+  }
 }
 
 const inMemoryCategoryRepository = new InMemoryCategoryRepository();

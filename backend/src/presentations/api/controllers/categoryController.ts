@@ -2,6 +2,8 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { ValidationError } from "@/helpers/errors/ValidationError";
 import { inMemoryCategoryRepository } from "@/repositories/InMemory/InMemoryCategoryRepository";
 import { createACategoryService } from "@/services/administrator/createACategoryService";
+import { deleteACategoryService } from "@/services/administrator/deleteCategoryService";
+import { CategoryNotFoundError } from "@/helpers/errors/CategoryNotFoundError";
 
 async function createCategory(
   req: FastifyRequest,
@@ -43,4 +45,25 @@ async function getAllCategories() {
   return categories;
 }
 
-export { createCategory, getAllCategories };
+async function deleteCategory(req: FastifyRequest, res: FastifyReply) {
+  const { categoryId } = req.params as {
+    categoryId: string;
+  };
+
+  let categoryDeleted;
+
+  try {
+    categoryDeleted = await deleteACategoryService.execute({ categoryId });
+    return res.send(categoryDeleted);
+  } catch (e) {
+    if (e instanceof CategoryNotFoundError) {
+      return res.status(404).send({ message: e.message });
+    }
+
+    return res
+      .status(500)
+      .send("Error deleting category: " + (e as Error).message);
+  }
+}
+
+export { createCategory, getAllCategories, deleteCategory };

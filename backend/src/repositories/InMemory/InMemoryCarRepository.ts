@@ -8,10 +8,26 @@ class InMemoryCarRepository implements ICarRepository {
     return Promise.resolve(this.cars);
   }
 
+  async getCarById(id: string) {
+    return Promise.resolve(this.cars.filter((car) => car.id == id)[0]);
+  }
+
   async create(car: Car) {
     this.cars.push(car);
 
     return Promise.resolve(car);
+  }
+
+  async delete(id: string) {
+    const carToDelete = this.cars.filter((car) => car.id == id)[0];
+
+    if (carToDelete) {
+      this.cars = [...this.cars.filter((car) => car.id != id)];
+
+      return Promise.resolve(carToDelete);
+    }
+
+    return undefined;
   }
 }
 

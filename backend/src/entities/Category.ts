@@ -52,7 +52,6 @@ export const categoryErrorMessages = {
 
 export const CategorySchema = z.object({
   name: z.string().min(1, categoryErrorMessages.createCategory.name.required),
-  description: z.string(),
 });
 
 export const createCategoryBodySchema = {

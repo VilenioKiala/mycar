@@ -3,7 +3,7 @@ import { Category } from "@/entities/Category";
 export type createACategoryUsecaseParams = {
   name: string;
   image?: string | undefined;
-  description: string;
+  description?: string;
 };
 
 export interface createACategoryUsecase {

@@ -1,6 +1,10 @@
 import { FastifyHttpOptions, FastifyInstance } from "fastify";
 import { createCarBodySchema } from "@/entities/Car";
-import { createCar, getAllCars } from "../controllers/carController";
+import {
+  createCar,
+  deleteACar,
+  getAllCars,
+} from "../controllers/carController";
 
 export async function carRoutes(
   fastify: FastifyInstance,
@@ -16,4 +20,5 @@ export async function carRoutes(
     createCar,
   );
   fastify.get("/", getAllCars);
+  fastify.delete("/:carId", deleteACar);
 }

@@ -5,6 +5,7 @@ interface ICategoryRepository {
   getCategoryById(id: string): Promise<Category | undefined>;
   getCategoryByName(name: string): Promise<Category | undefined>;
   getAllCategories(): Promise<Category[]>;
+  deleteCategory(id: string): Promise<Category | undefined>;
 }
 
 export type { ICategoryRepository };
